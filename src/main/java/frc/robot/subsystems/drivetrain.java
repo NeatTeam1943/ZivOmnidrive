@@ -4,14 +4,34 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.Victor;
+import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class drivetrain extends SubsystemBase {
-  /** Creates a new drivetrain. */
-  public drivetrain() {}
+  private VictorSP m_rightMotor; 
+  private VictorSP m_leftMotor;
+  private VictorSP m_midMotor;
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+  private DifferentialDrive m_diffDrive;
+  /** Creates a new drivetrain. */
+  public drivetrain() {
+    m_rightMotor = new VictorSP(0);
+    m_leftMotor = new VictorSP(0);
+    m_midMotor = new VictorSP(0);
+
+    m_diffDrive = new DifferentialDrive(m_leftMotor, m_rightMotor);
+
   }
+
+  public void arcadeDrive(double xspeed, double yspeed, double rotation) {
+    m_diffDrive.arcadeDrive(yspeed, rotation, true);
+    m_midMotor.set(xspeed);
+  }
+  
+
+
+
+
 }

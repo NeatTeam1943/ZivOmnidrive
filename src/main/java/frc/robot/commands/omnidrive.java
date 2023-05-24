@@ -4,21 +4,31 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.drivetrain;
 
 public class omnidrive extends CommandBase {
   /** Creates a new omnidrive. */
+  private drivetrain m_driveTrain;
+  private XboxController m_xboxController;
   public omnidrive() {
-    // Use addRequirements() here to declare subsystem dependencies.
+    m_xboxController = new XboxController(0);
+    m_driveTrain = new drivetrain();
+    addRequirements(m_driveTrain);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_driveTrain.arcadeDrive(m_xboxController.getLeftX(), m_xboxController.getLeftY(), m_xboxController.getRightX());
+  }
 
   // Called once the command ends or is interrupted.
   @Override
