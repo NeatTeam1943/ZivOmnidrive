@@ -4,34 +4,33 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.Victor;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.VictorSP;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class drivetrain extends SubsystemBase {
-  private VictorSP m_rightMotor; 
-  private VictorSP m_leftMotor;
-  private VictorSP m_midMotor;
+  private VictorSP m_bottomRightMotor; 
+  private VictorSP m_topRightMotor;
+  private VictorSP m_bottomLeftMotor;
+  private VictorSP m_topLeftMotor;
 
-  private DifferentialDrive m_diffDrive;
+  private MotorControllerGroup m_forwardMotors;
+  private MotorControllerGroup m_sidewaysMotors;
   /** Creates a new drivetrain. */
   public drivetrain() {
-    m_rightMotor = new VictorSP(0);
-    m_leftMotor = new VictorSP(0);
-    m_midMotor = new VictorSP(0);
+    m_bottomRightMotor = new VictorSP(0);
+    m_topRightMotor = new VictorSP(1);
+    m_bottomLeftMotor = new VictorSP(2);
+    m_topLeftMotor = new VictorSP(3);
 
-    m_diffDrive = new DifferentialDrive(m_leftMotor, m_rightMotor);
-
+    m_forwardMotors = new MotorControllerGroup(m_bottomLeftMotor, m_topRightMotor);
+    m_sidewaysMotors = new MotorControllerGroup(m_topLeftMotor, m_bottomRightMotor);
   }
 
-  public void arcadeDrive(double xspeed, double yspeed, double rotation) {
-    m_diffDrive.arcadeDrive(yspeed, rotation, true);
-    m_midMotor.set(xspeed);
+  public void move(double xspeed, double yspeed) {
+    m_forwardMotors.set(yspeed);
+    m_sidewaysMotors.set(xspeed);
   }
-  
-
-
-
 
 }

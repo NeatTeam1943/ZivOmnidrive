@@ -27,7 +27,7 @@ public class omnidrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_driveTrain.arcadeDrive(m_xboxController.getLeftX(), m_xboxController.getLeftY(), m_xboxController.getRightX());
+    m_driveTrain.move(m_xboxController.getLeftY(), m_xboxController.getLeftX());
   }
 
   // Called once the command ends or is interrupted.
